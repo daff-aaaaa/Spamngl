@@ -3,26 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools Spam NGL</title>
+    <title>Tools NGL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-          h2 {
-            margin-bottom: 310px;
+        .whatsapp-button {
+            width: 70px;
             position: absolute;
-            text-align: center;
-            color: #ffff;
-            z-index: 1;
-            font-size: 35px;
+            margin-top: 850px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #25D366;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+            animation: slideInUp 2s ease-out 0.2s backwards;
         }
-         .box {
+        .tiktok-button {
+            width: 70px;
             position: absolute;
-            margin-top: 1px;
-            margin-bottom: 285px;
-            background-color: #FF4242;
-            padding: 50px 40px;
-            border-radius: 30px 30px 1px 1px;
-            box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            margin-right: 230px;
+            margin-top: 850px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+            animation: slideInUp 2s ease-out 0.2s backwards;
         }
+        .telegram-button {
+            width: 70px;
+            position: absolute;
+            margin-left: 230px;
+            margin-top: 850px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #27B7F5;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+            animation: slideInUp 2s ease-out 0.2s backwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
         body {
             font-family: sans-serif;
             background-color: #F7F0F0;
@@ -31,7 +99,46 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
+        
+        .box {
+            position: absolute;
+            margin-top: 1px;
+            margin-bottom: 300px;
+            background-color: #FF1000;
+            padding: 60px 40px;
+            border-radius: 30px 30px 1px 1px;
+            box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            animation: slideInUp 0.6s ease-out;
+        }
+        h3 {
+          position: absolute;
+          margin-top: 780px;
+          border: solid #0001;
+          border-radius: 50px;
+          padding: 5px 40px;
+          background: #0FF9;
+          box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.1);
+          animation: slideInUp 2s ease-out 0.2s backwards;
+        }
+        h2 {
+          font-weight: bold;
+            font-style: italic;
+            margin-bottom: 320px;
+            position: absolute;
+            text-align: center;
+            color: #ffff;
+            z-index: 1;
+            font-size: 70px;
+            animation: fadeIn 1.3s ease-in;
+            text-shadow: -1px 1px #000,
+                         -1px 1px #000,
+                         -1px 1px #000,
+                         -1px 1px #000;
+        }
+
         .container {
             position: absolute;
             background-color: #f4f4f4;
@@ -39,24 +146,36 @@
             border-radius: 1px 1px 30px 30px;
             box-shadow: -5px 10px 5px rgba(0, 0, 0, 0.1);
             width: 300px;
+            animation: slideInUp 0.6s ease-out 0.2s backwards;
         }
+
         .form-group {
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             width: 300px;
             height: 50px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             color: #555;
+            animation: fadeIn 1s ease-in 0.4s backwards;
         }
+
         input[type="text"], input[type="number"] {
-            width: 100%;
+            width: 115px;
+            -webkit-transition: width 0.5s ease-in-out;
+            transition: width 1s ease-in-out;
             padding: 8px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 10px;
+            animation: fadeIn 1s ease-in 0.6s backwards;
         }
+        input[type=text]:focus {
+        width: 100%;
+        }
+
         button {
             box-shadow: -5px 10px 5px rgba(0, 0, 0, 0.1);
             margin-top: 300px;
@@ -68,11 +187,15 @@
             border-radius: 50px;
             font-size: 30px;
             cursor: pointer;
-            transition: background-color 0.5s ease;
+            transition: background-color 0m3s ease;
+            animation: slideInUp 0.6s ease-out 0.8s backwards, pulse 2s infinite ease-in-out;
         }
+        
         button:hover {
             background-color: #0056b3;
+            transform: scale(1.02);
         }
+
         #status {
             margin-top: 400px;
             position: absolute;
@@ -80,31 +203,45 @@
             text-align: center;
             font-weight: bold;
             color: #29221F;
+            animation: fadeIn 1s ease-in 1s backwards;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
+      <h3>My Social Media</h3>
+      <a href="https://wa.me/6283824951958" class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+        Whatsapp
+      </a>
+      <a href="https://tiktok.com/normal_daff" class="tiktok-button">
+        <i class="fab fa-tiktok"></i>
+        Tiktok
+      </a>
+            <a href="https://telegram.com/mrdetaill" class="telegram-button">
+        <i class="fab fa-telegram"></i>
+        Telegram
+      </a>
+    <div class="container">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Masukan Link NGL">
+        </div>
+        <div class="form-group">
+            <label for="pesan">Pesan:</label>
+            <input type="text" id="pesan" name="pesan" placeholder="Masukan Pesan">
+        </div>
+        <div class="form-group">
+            <label for="jumlah">Jumlah:</label>
+            <input type="number" id="jumlah" name="jumlah" placeholder="Masukan Jumlah">
+        </div>
     </div>
-    <div class="form-group">
-        <label for="pesan">Pesan:</label>
-        <input type="text" id="pesan" name="pesan">
-    </div>
-    <div class="form-group">
-        <label for="jumlah">Jumlah:</label>
-        <input type="number" id="jumlah" name="jumlah">
-    </div>
-</div>
-    <h2>Spam ngl by daff🔥</h2>
-    <button id="mulaiBtn">Mulai spam🔥</button>
+    <h2>NGL</h2>
+    <button id="mulaiBtn">Mulai🔥</button>
     <div id="status"></div>
-<div class="box"></div>
+    <div class="box"></div>
 
-<script>
-    document.getElementById('mulaiBtn').addEventListener('click', spamngl);
+    <script>
+        document.getElementById('mulaiBtn').addEventListener('click', spamngl);
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -116,6 +253,10 @@ async function spamngl() {
         const jumlah = document.getElementById('jumlah').value;
         const statusDiv = document.getElementById('status');
         
+        if (!user || !pesan || isNaN(jumlah) || jumlah < 1) {
+                statusDiv.textContent = '❌ Mohon isi semua kolom dengan benar.';
+                return;
+            }
         statusDiv.textContent = 'Proses dimulai...';
   const name = user.split('https://ngl.link/')[1]
   for (let i = 1; i <= jumlah; i++) {
@@ -127,15 +268,14 @@ async function spamngl() {
           'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         body: `username=${name}&question=${encodeURIComponent(pesan)}&deviceId=1`
-      }) 
+      });
     } catch {
-      await sleep(100);
-      statusDiv.textContent = 'PROSES SPAM🔥';
+      await sleep(500);
+      statusDiv.textContent = 'Mengirim Pesan Ke -' + i;
     }
   }
-  statusDiv.textContent = 'DONE SPAM NGL BY DAFFA🗿';
+  statusDiv.textContent = 'Proses Selesai..🗿';
 }
-</script>
-
+    </script>
 </body>
 </html>
